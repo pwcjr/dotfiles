@@ -37,7 +37,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 # dotfiles goodness
-alias dotfiles='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
+alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 # nicer LS
 LS=exa
 alias lsl="$LS -lFgH --color=auto --time-style=long-iso --group-directories-first"
