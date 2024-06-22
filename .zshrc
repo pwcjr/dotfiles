@@ -29,6 +29,7 @@ zstyle ':completion:*' menu select
 
 # allow backspace delete in vi-mode after switching to input mode from normal mode
 bindkey "^?" backward-delete-char
+bindkey "^[[3~" delete-char
 
 #------------------------------------------------------------------------------
 # aliases
@@ -36,17 +37,28 @@ bindkey "^?" backward-delete-char
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias history='history -i'
 # dotfiles goodness
 alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 # nicer LS
-LS=exa
-alias lsl="$LS -lFgH --color=auto --time-style=long-iso --group-directories-first"
+LS=eza
+alias ls="$LS"
+#alias lsl="$LS -lFgH --color=auto --time-style=long-iso --group-directories-first"
+alias lsl="$LS -lgH --color=auto --time-style=long-iso --group-directories-first"
+alias lsblk="lsblk -o NAME,MAJ:MIN,RM,SIZE,RO,TYPE,MOUNTPOINTS,MODEL,UUID"
 # color grep matches
 alias grep='grep --color'
+alias hostname='echo $(hostnamectl status | grep -i "static hostname" | cut -d: -f 2 | sed -r "s/\s+//g")'
+alias hostname-full='hostnamectl status'
 # reload config
 alias zr='source ~/.zshrc'
 # fetch Arch Linux mirror updates
 alias update-mirrors="curl 'https://archlinux.org/mirrorlist/?country=US&protocol=https&ip_version=4&use_mirror_status=on' | sed 's/#Server/Server/' | rankmirrors -vn 10 - | tee mirrorlist.ranked"
+
+# update GRUB loader and config
+alias update-grub="sudo grub-install --efi-directory=/boot --bootloader-id=GRUB && sudo grub-mkconfig -o /boot/grub/grub.cfg"
+# YouTube-specific alias with metadata
+alias yt="yt-dlp --write-{description,annotations,info-json} "
 
 setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_DUPS
